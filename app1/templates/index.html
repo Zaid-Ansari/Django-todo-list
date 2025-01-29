@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% block body %}
+
+
+
+
+<hr>
+<div class="mt-5 mx-auto p-3 shadow-lg rounded-2 border border-warning">
+  <table class="table table-dark table-hover">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Title</th>
+        <th scope="col">Description</th>
+        <th scope="col">Status</th>
+        <th scope="col">Change status</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for x in objs %}
+            <tr class="table-primary table-striped">
+                <th scope="row">{{ x.id }}</th>
+                <td>{{ x.title }}</td>
+                <td>{{ x.description }}</td>
+                <td>{% if x.status == True%}
+                  👍
+                  {%else%}
+                  👎
+                  {% endif %}
+                </td>
+                <td><a href="/toggleItem/{{ x.id }}"><button class="btn  btn-success btn-outline-dark">Mark As Done</button></a> <a href="/delItem/{{ x.id }}"><button class="btn btn-outline-danger">Delete Entry</button></a></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<hr><h4 class="m-2"><center>INSERT</center></h4><hr>
+
+<div class=" mx-auto p-1 ">
+    <form class="mx-auto shadow-lg p-4" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-3">
+        <label class="form-label">Title</label>
+        <input type="text" class="form-control" name="titlex">
+        <div class="mb-3">
+        <label class="form-label">Description</label>
+        <input type="text" class="form-control" name="descriptionx">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+<hr><h4>update</h4><hr>
+
+<div class="mx-auto shadow">
+
+      {% comment %} <div class="mb-3">
+      Enter ID: 
+      <input type="text" id="textInput"> <br> <br>
+       <div ></div><button class="btn btn-secondary" id="linkContainer" onclick="createURL()">Submit</button>    
+      <h2>Your Dynamic Link:</h2></div>  
+     
+      <script>
+        function createURL() {
+          {
+            // Get the text input value
+            const textInput = document.getElementById('textInput').value;
+
+            // Get the link container
+            const linkContainer = document.getElementById('linkContainer');
+
+            // Clear previous links
+            linkContainer.innerHTML = '';
+
+            // Create a new anchor element
+            const a = document.createElement('a');
+            a.href = '/upItem/' + encodeURIComponent(textInput); // Set the link URL
+            a.textContent = textInput; // Set the link text
+
+            // Append the anchor to the container
+            linkContainer.appendChild(a);
+            window.location.href = a;
+        };
+        }
+      </script> {% endcomment %}
+      <div class="mb-3">
+        Enter ID: 
+        <input type="text" id="textInput"> <br> <br>
+        <button class="btn btn-secondary" id="linkContainer" onclick="createURL()">Submit</button>
+        <div id="linkDisplay"></div>
+      </div>  
+      
+      <script>
+        function createURL() {
+          // Get the text input value
+          const textInput = document.getElementById('textInput').value;
+      
+          // Create the dynamic URL using the text input value
+          const dynamicURL = '/upItem/' + encodeURIComponent(textInput);
+      
+          // Optional: Display the link on the page (you can remove this if you don't need to show it)
+          const linkDisplay = document.getElementById('linkDisplay');
+          linkDisplay.innerHTML = ''; // Clear any previous links
+          const a = document.createElement('a');
+          a.href = dynamicURL; // Set the link URL
+          a.textContent = dynamicURL; // Show the generated link as text
+          linkDisplay.appendChild(a);
+      
+          // Redirect to the dynamic URL immediately
+          window.location.href = dynamicURL;
+        }
+      </script>
+
+</div>
+
+
+{% endblock body %}

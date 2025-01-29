@@ -1,0 +1,4 @@
+1. add priority fuctions
+2. make separate pages for separate fuctions
+3. polish the navBar
+4. add a search bar
